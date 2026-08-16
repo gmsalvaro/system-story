@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,6 @@ public class ConsorcioParticipante {
     private boolean contemplado;
     @Column(name = "data_contemplacao")
     private LocalDate dataContemplacao;
-    @OneToMany(mappedBy = "participante")
+    @OneToMany(mappedBy = "participante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConsorcioPagamento> pagamentos;
 }

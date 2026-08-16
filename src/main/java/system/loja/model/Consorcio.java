@@ -11,8 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import java.util.List;
 import java.time.LocalDate;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 @Table(name = "consorcio")
@@ -33,8 +36,9 @@ public class Consorcio {
     private double valorPremio;
     @Column(name = "data_pagamento")
     private LocalDate dataPagamento; // se é todo dia 12 do mes ou algo assim
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_consorcio")
     private StatusConsorcio statusConsorcio;
-    @OneToMany(mappedBy = "consorcio_id")
+    @OneToMany(mappedBy = "consorcio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConsorcioParticipante> participantes;
 }

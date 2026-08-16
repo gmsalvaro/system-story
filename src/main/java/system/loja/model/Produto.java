@@ -22,13 +22,15 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String codigo;
+    @Column(unique = true, nullable = false)
     private String nome;
-    @Column(name = "preco_custo")
+    @Column(name = "preco_custo", nullable = false)
     private double precoCusto;
-    @Column(name = "preco_venda")
+    @Column(name = "preco_venda", nullable = false)
     private double precoVenda;
-    @Column(name = "estoque_atual")
+    @Column(name = "estoque_atual", nullable = false)
     private int estoqueAtual;
     @Column(name = "estoque_minimo")
     private int estoqueMinimo;
