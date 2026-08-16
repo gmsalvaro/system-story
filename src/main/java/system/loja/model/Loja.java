@@ -1,6 +1,5 @@
 package system.loja.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,17 +11,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import system.loja.model.Loja;
+import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "loja")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class Cliente {
+
+public class Loja {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,16 +30,14 @@ public class Cliente {
     private String nome;
 
     @Column(nullable = false)
+    private String cnpj;
+
+    @Column(nullable = false)
     private String telefone;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Venda> vendas;
+    @Column(nullable = false)
+    private String endereco;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<ConsorcioParticipante> consorcios;
-
-    @ManyToOne
-    @JoinColumn(name = "loja_id")
-    private Loja loja;
-
+    @OneToMany(mappedBy = "loja")
+    private List<Cliente> clientes;
 }

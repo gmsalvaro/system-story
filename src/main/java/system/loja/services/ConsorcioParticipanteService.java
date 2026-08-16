@@ -53,9 +53,7 @@ public class ConsorcioParticipanteService {
     }
 
     @Transactional
-    public ConsorcioParticipante contemplarParticipante(Long id) {
-        ConsorcioParticipante participante = buscarPorId(id);
-        
+    public ConsorcioParticipante contemplarParticipante(ConsorcioParticipante participante) {
         if (participante.isContemplado()) {
             throw new ParticipanteValidationException("Participante já foi contemplado");
         }

@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "produto")
@@ -34,4 +36,7 @@ public class Produto {
     private int estoqueAtual;
     @Column(name = "estoque_minimo")
     private int estoqueMinimo;
+    @ManyToOne
+    @JoinColumn(name = "loja_id")
+    private Loja loja;
 }

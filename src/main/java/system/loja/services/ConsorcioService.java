@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import system.loja.model.Consorcio;
 import system.loja.model.StatusConsorcio;
+import system.loja.model.ConsorcioParticipante;
 import system.loja.repositories.ConsorcioRepository;
 import system.loja.exceptions.consorcio.ConsorcioNotFoundException;
 import system.loja.exceptions.consorcio.ConsorcioValidationException;
@@ -48,6 +49,21 @@ public class ConsorcioService {
 
     public List<Consorcio> buscarTodos() {
         return consorcioRepository.findAll();
+    }
+
+    public ConsorcioParticipante sortearParticipante(Long idConsorcio) {
+        Consorcio consorcio = buscarPorId(idConsorcio);
+
+        List<ConsorcioParticipante> participantesElegiveis = consorcio.getParticipantes().stream()
+                .filter(p -> !p.isContemplado())
+                .toList();
+
+        if (participantesElegiveis.isEmpty()) {
+            throw new ConsorcioValidationException("Não há participantes elegíveis para o sorteio.");
+        }
+
+        int numeroSorteado = (int) (Math.random() * participantesElegiveis.size());
+        return participantesElegiveis.get(numeroSorteado);
     }
 
     @Transactional
